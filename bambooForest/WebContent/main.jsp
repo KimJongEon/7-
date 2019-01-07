@@ -9,14 +9,13 @@
   	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   	crossorigin="anonymous">
 </script>
-<script src='/js/main.js'></script>
 <title>main.jsp</title>
 </head>
 <body>
 	<h1>Bamboo Forest</h1>
 	<c:if test="${!empty sessionScope.member}">
 		<div>
-			<p>${member.memberid}님  <button id="logout">Logout</button></p>
+			${member.memberid}님  <form action="/web/logout"><input type="submit" id="logout" value="Logout"/></form>
 		</div>
 	</c:if>
 	<div>
