@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
     
@@ -26,7 +26,7 @@ $(document).ready(function() {
 				var Obj = JSON.parse(data);
 				var li1 = '<li class="list-group-item"><p>';
 				var comment = "";
-				if(Obj.memberid == "${member.memberid}")
+				if(Obj.memberid == "${post.memberid}")
 					comment = comment + "(글쓴이)";
 					comment = comment + Obj.comment + "-" + Obj.created;
 				
