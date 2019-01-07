@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.naming.Context;
@@ -186,7 +187,7 @@ public class PostDBBean {
 			stmt.setString(1, post.getTitle());
 			stmt.setString(2, post.getContent());
 			stmt.setString(3, post.getMemberid());
-			result = stmt.executeUpdate(sql);
+			result = stmt.executeUpdate();
 			
 		} catch (Exception e) {
 			System.out.println("addPost 오류");
@@ -201,31 +202,43 @@ public class PostDBBean {
 	
 	
 	// 댓글 등록
-	public int addReply(ReplyBean reply) {
+	public ReplyBean addReply(ReplyBean reply) {
         Connection conn = getConnection();
-        PreparedStatement stmt = null;
+        PreparedStatement stmt = null , stmt2 = null;
+        ResultSet rs = null, rsKey = null;
         int result = 0;
-        
         
         try {
            String sql = "insert into reply (postid, memberid, comment) values(?,?,?)";
-                 stmt = conn.prepareStatement(sql);
+                 stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                 
                  stmt.setInt(1, reply.getPostid());
                  stmt.setString(2, reply.getMemberid());
                  stmt.setString(3, reply.getComment());
-                 result = stmt.executeUpdate(sql);
+                 result = stmt.executeUpdate();
+                 rsKey = stmt.getGeneratedKeys();
+                 if(rsKey.next()) {
+                	 result = rsKey.getInt("repliyid");
+                 }
+                 
+           String sql2 = "select * from reply where replyid = ?";
+                 stmt2 = conn.prepareStatement(sql2);
+                 stmt2.setInt(1, result);
+                 rs = stmt2.executeQuery();
+                 if(rs.next()) {
+                	 reply.setCreated(rs.getTimestamp("created"));
+                	 reply.setReplyid(result);
+                	 return reply;
+                 }
         }catch (Exception e) {
-  
+        	e.printStackTrace();
+        	System.out.println("addReply error");
         }finally{
-           try {
-               if(stmt != null) stmt.close();
-               if(conn !=null) conn.close();
-           } catch (SQLException ex) {
-              ex.printStackTrace();
-           }
+        	 try {rs.close();} catch (SQLException e) {}
+             try {stmt.close();} catch (SQLException e) {}
+             try {conn.close();} catch (SQLException e) {}
         }
-
-        return result;
+        return null;
      
      }
 }

@@ -8,9 +8,10 @@
 </head>
 <body>
 	<!--글쓰기 입력 폼 -->
-	<input type="text" name="title" id="title">
-	<textarea rows="5" cols="30" name="content" id="content"></textarea>
-	<button id="addPost">Add Post</button>
-
+	<form action="/web/addPost" method="POST">
+	 제목 : <input type="text" name="title" id="title"><br/>
+	<p>내용</p><textarea rows="5" cols="30" name="content" id="content"></textarea>
+	<input type="submit" value="AddPost"/>
+	</form>
 </body>
 </html>

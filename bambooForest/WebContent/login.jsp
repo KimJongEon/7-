@@ -12,8 +12,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	Id : <input type="text" id="memberid" name="memberid">
-	Password : <input type="password" name="password" id="password">
+	Id : <input type="text" id="memberid" name="memberid" autofocus/>
+	Password : <input type="password" name="password" id="password"/>
 	<button id="login">Login</button>
 </body>
 </html>

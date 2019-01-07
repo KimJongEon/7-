@@ -137,7 +137,7 @@ public class APIController extends HttpServlet {
             e.printStackTrace();
          }
          //그냥 주면 웹브라우저가 JSON인지 모름 , html이 아니라 text라고 말해줌
-         response.setContentType("text; charset=UTF-8");
+         response.setContentType("text/json; charset=UTF-8");
          //action 이 준 JSON 을 바로 AJAX에게 리턴
          response.getWriter().println(result);
 

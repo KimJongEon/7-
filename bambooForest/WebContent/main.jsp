@@ -9,21 +9,7 @@
   	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   	crossorigin="anonymous">
 </script>
-<script>
-
-	$(document).ready(function() {
-		$("#logout").click(function() {
-
-			$.ajax({
-				type : "post",
-				url : "/api/logout",
-				success : function() {
-					location.href = "/web/index";
-				}
-			});
-		});
-	});
-</script>
+<script src='/js/main.js'></script>
 <title>main.jsp</title>
 </head>
 <body>

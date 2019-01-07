@@ -80,7 +80,7 @@ public class MemberDBBean {
 		return ERROR;
 	}
 	
-	
+	//----
 	public MemberBean getMember(String memberid) {
 		Connection conn = getConnection();
 		PreparedStatement stmt = null;

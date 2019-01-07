@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import bambooforest.model.MemberBean;
+import bambooforest.model.PostBean;
+import bambooforest.model.PostDBBean;
 
 public class AddPostAction implements Action {
 
@@ -16,7 +18,7 @@ public class AddPostAction implements Action {
 			throws ServletException, IOException {
 		String result;
 		
-		if(request.getMethod().equals("Post")) {
+		if(request.getMethod().equals("POST")) {
 			result = processPost(request, response);
 		}else {
 			result = processGet(request, response);
@@ -45,8 +47,26 @@ public class AddPostAction implements Action {
 	public String processPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		request.setCharacterEncoding("UTF-8");
+		
+		// session에서 memberid를 얻고
+		HttpSession session = request.getSession();
+		MemberBean member = (MemberBean)session.getAttribute("member");
+		String memberid = member.getMemberid();
+		
+		// parameter로 title과 content를 얻고 다음
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		
+		// PostDBBean을 이용해 DB에 추가
+		PostDBBean db = PostDBBean.getInstance();
+		PostBean post = new PostBean();
+		post.setContent(content);
+		post.setTitle(title);
+		post.setMemberid(memberid);
+		db.addPost(post);
 		
 		
-		return null;
+		return "/index.jsp";
 	}
 }
