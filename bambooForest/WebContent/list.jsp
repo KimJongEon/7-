@@ -6,15 +6,22 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+  	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  	crossorigin="anonymous">
+</script>
 
-<style>
-	table { border-collapse:collapse; }
-	table td, th {border:1px solid;}
-	
-</style>
+	<link rel="stylesheet" href="/css/list.css">
 </head>
 <body>
-<h3>게시글 목록</h3>
+
+	<h3>게시글 목록</h3>
+	<!--파라미터를 받고 디비를 쓰지 않아서 GET방식을 사용하여도 무관 -->
+	<form action="/web/addPost" method="GET">
+		<input type="submit" value="글쓰기">
+	</form>
+	
+	
 	<table>
 		<thead>
 			<tr>

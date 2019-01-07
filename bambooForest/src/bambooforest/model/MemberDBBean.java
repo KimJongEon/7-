@@ -80,4 +80,35 @@ public class MemberDBBean {
 		return ERROR;
 	}
 	
+	
+	public MemberBean getMember(String memberid) {
+		Connection conn = getConnection();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "select * from member where memberid = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, memberid);
+			rs = stmt.executeQuery();
+			
+			if(rs.next()) {
+				MemberBean member = new MemberBean();
+				member.setMemberid(rs.getString("memberid"));
+				member.setPassword(rs.getString("password"));
+				return member;
+			}else {
+				return null;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null)try {rs.close();}catch(Exception e) {}
+			if(stmt!=null)try {stmt.close();}catch(Exception e) {}
+			if(conn!=null)try {conn.close();}catch(Exception e) {}
+		}
+		
+		return null;
+	}
 }
