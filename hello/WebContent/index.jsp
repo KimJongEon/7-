@@ -8,6 +8,6 @@
 </head>
 <body>
 	<jsp:forward page="/web/index"/>
-
+	<h1>안녕하세요 2019/01/10 테스트</h1>
 </body>
 </html>
